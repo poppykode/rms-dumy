@@ -1,0 +1,51 @@
+{% extends 'shared/shared.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Dummy Portal |  Add Results to Student
+{% endblock %}
+{% block content %}
+<div class="forms-main"> 
+    <h4 class="inner-tittle">
+        Add Results for Student {{ obj.first_name|title}} {{ obj.last_name|title}} ({{obj.student_id_number}})
+    </h4>
+
+    <div class="graph-form">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+            </button>
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+    <form method="POST" action="{% url 'students:add_results_to_student' obj.pk %}">
+        {% csrf_token %}
+        <div class="form-group mb-3">
+            {{ form.code|as_crispy_field }}
+        </div>
+        <div class="form-group mb-3">
+            {{ form.module_name|as_crispy_field }}
+        </div>
+        <div class="form-group mb-3">
+            {{ form.mark|as_crispy_field }}
+        </div>
+        <div class="form-group mb-3">
+            {{ form.grade|as_crispy_field }}
+        </div>
+        <div class="form-group mb-3">
+            {{ form.gpe|as_crispy_field }}
+        </div>
+        <div class="form-group mb-3">
+            {{ form.credits|as_crispy_field }}
+        </div>
+
+        <div class="row">
+                <button type="submit" class="btn btn-default">Add</button>      
+                <a href="" class="btn btn-warning">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+{% endblock %}

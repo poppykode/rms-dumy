@@ -1,0 +1,71 @@
+{% extends 'shared/shared.html' %}
+{% load static %}
+{% block title %}RMS Portal | Students{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css">
+{% endblock %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-12">
+		<div class="tables">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+                </button>
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            <table class="table table-bordered" id="users">
+                <thead>
+                    <tr>
+                      <th>Student Number</th>
+                      <th>Full Name</th>
+                      <th>Course</th>
+                      <th>Date Created</th>
+                      <th>State</th>
+                      <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stds in obj %}      
+                    <tr >   
+                    <td> <a href="{% url 'students:student_details' stds.pk stds.student_id %}">{{ stds.student_id_number}}</a> </td>         
+                      <td> {{ stds.first_name|title}} {{ stds.last_name|title}}</td>
+                      <td>{{stds.course}}</td>
+                      <td>{{ stds.timestamp|date:"M d Y H:i A"}}</td>
+                      {% if stds.archieved == True %}
+                      <td style="color: green;">Archieve</td>
+                      {% else %}
+                      <td style="color: red;">To Be Archieved</td>
+                     
+                      {% endif %}
+                      <td>
+                        {% if stds.archieved == True %}
+                        <i style="color: green;" class="fa fa-check-square"></i>
+                        {% else %}
+                        <a href="{% url 'students:archieve' 'student' stds.pk stds.student_id %}"><i class="fa fa-archive"></i></a>
+                       {% endif %}
+                      </td>
+                    </tr> 
+                    {% endfor %}
+              
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('#users').DataTable();
+} );
+
+</script>
+{% endblock %}

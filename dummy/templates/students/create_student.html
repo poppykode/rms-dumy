@@ -1,0 +1,113 @@
+{% extends 'shared/shared.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Dummy Portal |
+{% if type == 'create' %}
+Add Student
+{% else %}
+Update Student
+{% endif %}
+{% endblock %}
+{% block content %}
+<div class="forms-main">
+
+    <h4 class="inner-tittle">
+        {% if type == 'create' %}
+        Add Student
+        {% else %}
+        Update Student
+        {% endif %}
+    </h4>
+
+    <div class="graph-form">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+            </button>
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% if type == 'create' %}
+        <form method="POST" action="{% url 'students:create_student' %}">
+            {% else %}
+            <form method="POST">
+                {% endif %}
+                {% csrf_token %}
+                <div class="row">
+                    <h4>Student Related Info</h4>
+                </div>
+                <hr>
+
+                <div class="form-group mb-3">
+                    {{ form.first_name|as_crispy_field }}
+                </div>
+
+                <div class="form-group mb-3">
+                    {{ form.last_name|as_crispy_field }}
+                </div>
+
+
+                <div class="form-group mb-3">
+                    {{ form.course|as_crispy_field }}
+                </div>
+
+
+                <div class="form-group mb-3">
+                    {{ form.national_id_number|as_crispy_field }}
+                </div>
+
+                <div class="form-group mb-3">
+                    {{ form.dob|as_crispy_field }}
+                </div>
+
+
+
+                <div class="form-group mb-3">
+                    {{ form.phone_number|as_crispy_field }}
+                </div>
+
+                <div class="form-group mb-3">
+                    {{ form.religion|as_crispy_field }}
+                </div>
+
+                <hr>
+
+                <h4>Next of Kin Related Info</h4>
+
+                <hr>
+
+                <div class="form-group mb-3">
+                    {{ form.next_of_kin|as_crispy_field }}
+                </div>
+
+                <div class="form-group mb-3">
+                    {{ form.relationship|as_crispy_field }}
+                </div>
+
+                <div class="form-group mb-3">
+                    {{ form.next_of_kin_phone_number|as_crispy_field }}
+                </div>
+
+                <div class="form-group mb-3">
+                    {{ form.address|as_crispy_field }}
+                </div>
+    </div>
+
+
+    <div class="row">
+        {% if type == 'create' %}
+        <button type="submit" class="btn btn-default">Add</button>
+        <a href="" class="btn btn-warning">Cancel</a>
+        {% else %}
+        <button type="submit" class="btn btn-default">Update</button>
+        <a href="" class="btn btn-warning">Cancel</a>
+        {% endif %}
+    </div>
+</div>
+</form>
+</div>
+</div>
+</div>
+{% endblock %}

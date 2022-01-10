@@ -1,0 +1,65 @@
+{% extends 'shared/shared.html' %}
+{% load static %}
+{% block title %}RMS Portal | Archieves{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css">
+{% endblock %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-12">
+		<div class="tables">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+                </button>
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            <table class="table table-bordered" id="users">
+                <thead>
+                    <tr>
+                      <th>Archieve Id</th>
+                      <th>Type</th>
+                      <th>Row</th>
+                      <th>Bay</th>
+                      <th>Shelf</th>
+                      <th>Position</th>
+                      <th>Date Archived</th>
+                   
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stds in obj %}      
+                    <tr >   
+                    <td> <a href="#">{{ stds.archieve_id}}</a> </td>         
+    
+                      <td>{{stds.typ|title}}</td>
+                      <td>{{stds.row}}</td>
+                      <td>{{stds.bay}}</td>
+                      <td>{{stds.shelf}}</td>
+                      <td>{{stds.position}}</td>
+                      <td>{{ stds.timestamp|date:"M d Y H:i A"}}</td>
+    
+                    </tr> 
+                    {% endfor %}
+              
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('#users').DataTable();
+} );
+
+</script>
+{% endblock %}

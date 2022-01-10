@@ -1,0 +1,12 @@
+{% extends 'shared/shared.html' %}
+{% load static %}
+{% block title %}Dummy Portal{% endblock %}
+{% block breadcrumb %}
+<ol class="breadcrumb m-b-0">
+    <li><a href="{% url 'accounts:redirect_logged' %}">Home</a></li>
+    <li class="active">H.O.D Dashboard</li>
+</ol>
+{% endblock %}
+{% block content %}
+<h1>testing</h1>
+{% endblock %}

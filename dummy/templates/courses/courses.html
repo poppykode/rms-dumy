@@ -1,0 +1,62 @@
+{% extends 'shared/shared.html' %}
+{% load static %}
+{% block title %}Dummy Portal | Courses{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css">
+{% endblock %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-2">
+        <a href="{% url 'courses:create_course' %}" class="btn btn-success">Add Course</a>
+    </div>
+   
+    <div class="col-md-10">
+		<div class="tables">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+                </button>
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+																
+            <table class="table table-bordered" id="users">
+                <thead>
+                    <tr>
+                      <th>Course</th>
+                      <th>Date Created</th>
+                      <th>Actions</th>
+                  
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for crse in obj %}      
+                    <tr >            
+                      <td> {{ crse.name|title}}</td>
+                      <td>{{ crse.timestamp|date:"M d Y H:i A"}}</td>
+                      <td> 
+                     n/a
+                      </td>
+                    </tr> 
+                    {% endfor %}
+              
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('#users').DataTable();
+} );
+
+</script>
+{% endblock %}

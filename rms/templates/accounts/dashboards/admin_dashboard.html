@@ -1,0 +1,66 @@
+{% extends 'shared/shared.html' %}
+{% load static %}
+{% block title %}RMS Portal{% endblock %}
+{% block breadcrumb %}
+<ol class="breadcrumb m-b-0">
+    <li><a href="{% url 'accounts:redirect_logged' %}">Home</a></li>
+    <li class="active">Admin Dashboard</li>
+</ol>
+{% endblock %}
+{% block content %}
+<div class="custom-widgets">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+        </button>
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}	
+    <div class="row-one">
+         <div class="col-md-3 widget">
+             <div class="stats-left ">
+                 <h5>Total</h5>
+                 <h5> Students</h5>
+             </div>
+             <div class="stats-right">
+                 <label>{{total_students}}</label>
+             </div>
+             <div class="clearfix"> </div>	
+         </div>
+         <div class="col-md-3 widget states-mdl">
+             <div class="stats-left">
+                 <h5>Total</h5>
+                 <h5>Archieved Students</h5>
+             </div>
+             <div class="stats-right">
+                 <label> {{total_students_archieved}}</label>
+             </div>
+             <div class="clearfix"> </div>	
+         </div>
+         <div class="col-md-3 widget states-thrd">
+             <div class="stats-left">
+                 <h5>Total</h5>
+                 <h5>Not Archieved</h5>
+             </div>
+             <div class="stats-right">
+                 <label>{{total_students_to_be_archieved}}</label>
+             </div>
+             <div class="clearfix"> </div>	
+         </div>
+         <div class="col-md-3 widget states-last">
+             <div class="stats-left">
+                 <h5>Total</h5>
+                 <h5>Results</h5>
+             </div>
+             <div class="stats-right">
+                 <label>{{total_results}}</label>
+             </div>
+             <div class="clearfix"> </div>	
+         </div>
+         <div class="clearfix"> </div>	
+     </div>
+ </div>
+{% endblock %}
+

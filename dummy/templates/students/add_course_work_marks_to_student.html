@@ -1,0 +1,61 @@
+{% extends 'shared/shared.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Dummy Portal | Add Course work to Student
+{% endblock %}
+{% block content %}
+<div class="forms-main">
+    <h4 class="inner-tittle">
+        Add Course work for Student {{ obj.first_name|title}} {{ obj.last_name|title}} ({{obj.student_id_number}})
+    </h4>
+
+    <div class="graph-form">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+            </button>
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <form method="POST" action="{% url 'students:add_course_work_marks_to_student' obj.pk %}">
+            {% csrf_token %}
+            <div class="form-group mb-3">
+                {{ form.quizz_mark|as_crispy_field }}
+            </div>
+            <div class="form-group mb-3">
+                {{ form.quizz_total|as_crispy_field }}
+            </div>
+            <hr>
+            <div class="form-group mb-3">
+                {{ form.group_mark|as_crispy_field }}
+            </div>
+            <div class="form-group mb-3">
+                {{ form.group_total|as_crispy_field }}
+            </div>
+            <hr>
+            <div class="form-group mb-3">
+                {{ form.presentation_mark|as_crispy_field }}
+            </div>
+            <div class="form-group mb-3">
+                {{ form.presentation_total|as_crispy_field }}
+            </div>
+            <hr>
+            <div class="form-group mb-3">
+                {{ form.test_mark|as_crispy_field }}
+            </div>
+            <div class="form-group mb-3">
+                {{ form.test_total|as_crispy_field }}
+            </div>
+
+
+            <div class="row">
+                <button type="submit" class="btn btn-default">Add</button>
+                <a href="" class="btn btn-warning">Cancel</a>
+            </div>
+    </div>
+    </form>
+</div>
+</div>
+{% endblock %}

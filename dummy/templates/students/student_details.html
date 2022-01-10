@@ -1,0 +1,122 @@
+{% extends 'shared/shared.html' %}
+{% load static %}
+{% block title %}Dummy Portal | {{ obj.first_name|title}}    {{ obj.last_name|title}}{% endblock %}
+
+{% block content %}
+
+<div class="row">
+   <div class="col-md-4">
+    <div class="grid_3 grid_4">
+        <i class="fa fa-user fa-5x"></i>
+     
+        <div class="card-body">
+          <h4 class="card-title">{{ obj.first_name|title}}  {{ obj.last_name|title}} ({{obj.student_id_number}})</h4>
+          <p class="card-text"><strong>Email:</strong>  {{ obj.email}} </p>
+          <p class="card-text"><strong>Phone Number:</strong>  {{ obj.phone_number}} </p>
+          <p class="card-text"><strong>National ID:</strong>  {{ obj.national_id_number}} </p>
+          <p class="card-text"><strong>Course:</strong>  {{ obj.course.name|title}} </p>
+          <p class="card-text"><strong>Religion:</strong>  {{ obj.religion}} </p>
+          <p class="card-text"><strong>D.O.B:</strong>  {{ obj.dob}} </p>
+          <small> Date created : {{ obj.timestamp|date:"M d Y H:i A"}} </small>
+          <h4>Next of Kin Details</h4>
+          <hr>
+           <p><strong>Full Name: </strong> {{obj.next_of_kin|title}}</p>
+           <p><strong>Relationship:</strong>  {{obj.relationship|title}}</p>
+           <p><strong>Phone Number:</strong>  {{obj.next_of_kin_phone_number}}</p>
+           <p><strong>Address</strong> </p>
+           <p>{{obj.address|title}}</p>
+          <hr>
+         
+        </div>
+
+   </div>
+</div>
+   <div class="col-md-7">
+    <div class="grid_3 grid_4">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+            </button>
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}	
+
+        <a href="{% url 'students:add_results_to_student' obj.pk %}" class="btn btn-success">Add Results</a>
+        <hr>
+        <div class="tables">
+          <table class="table table-bordered"> 
+            <thead> 
+              <tr> 
+           
+                <th>Code</th> 
+                <th>Module Name</th> 
+                <th>Mark</th> 
+                <th>GPE</th>
+                <th>Grade</th>
+                <th>Credits</th>
+                <th>Date</th>
+                <th>Actions</th>
+              </tr> 
+            </thead> 
+            <tbody> 
+              {% for s in obj.student_result_student.all %}
+              <tr>    
+                <td>{{s.code}}</td>
+                 <td>{{s.module_name|title}}</td> 
+                 <td>{{s.mark}}%</td> 
+                 <td>{{s.gpe|title}}</td> 
+                 <td>{{s.grade|title}}</td>
+                 <td>{{s.credits}}</td> 
+                 <td>{{ s.timestamp|date:"M d Y H:i A"}}</td>
+                 <td>
+                  <a href=""><i class="fa fa-pencil"></i></a>
+                  <a href=""><i class="fa fa-times"></i></a>
+                 </td>
+                </tr>
+              {% endfor %}
+               </tbody> 
+              </table>
+        </div>
+        <hr>
+        <a href="{% url 'students:add_course_work_marks_to_student' obj.pk %}" class="btn btn-success">Add Course Work Marks</a>
+        <hr>
+        <div class="tables">
+          <table class="table table-bordered"> 
+            <thead> 
+              <tr> 
+           
+                <th>Quizz</th> 
+                <th>Group Mark</th> 
+                <th>Presentation Mark</th> 
+                <th>Test Mark</th>
+                <th>Final Mark</th>
+                <th>Date</th>
+                <th>Actions</th>
+              </tr> 
+            </thead> 
+            <tbody> 
+              {% for s in obj.student_course_work_student.all %}
+              <tr>    
+                <td>{{s.quizz_mark}}/{{s.quizz_total}}</td>
+                 <td>{{s.group_mark}}/{{s.group_total}}</td> 
+                 <td>{{s.presentation_mark}}/{{s.presentation_total}}</td> 
+                 <td>{{s.test_mark}}/{{s.test_total}}</td> 
+                 <td>{{s.final_mark|floatformat:2}}</td>
+                 <td>{{ s.timestamp|date:"M d Y H:i A"}}</td>
+                 <td>
+                  <a href=""><i class="fa fa-pencil"></i></a>
+                  <a href=""><i class="fa fa-times"></i></a>
+                 </td>
+                </tr>
+              {% endfor %}
+               </tbody> 
+              </table>
+        </div>
+      
+        </div>
+   </div>
+
+</div>
+{% endblock %}

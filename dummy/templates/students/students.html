@@ -1,0 +1,65 @@
+{% extends 'shared/shared.html' %}
+{% load static %}
+{% block title %}Dummy Portal | Students{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css">
+{% endblock %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-2">
+        <a href="{% url 'students:create_student' %}" class="btn btn-success">Add Student</a>
+    </div>
+   
+    <div class="col-md-10">
+		<div class="tables">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+                </button>
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            <table class="table table-bordered" id="users">
+                <thead>
+                    <tr>
+                      <th>Student Number</th>
+                      <th>Full Name</th>
+                      <th>Course</th>
+                      <th>Date Created</th>
+                      <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stds in obj %}      
+                    <tr >   
+                    <td> <a href="{% url 'students:student_details' stds.pk %}">{{ stds.student_id_number}}</a> </td>         
+                      <td> {{ stds.first_name|title}} {{ stds.last_name|title}}</td>
+                      <td>{{stds.course.name}}</td>
+                      <td>{{ stds.timestamp|date:"M d Y H:i A"}}</td>
+                      <td>
+                          <a href=""><i class="fa fa-pencil"></i></a>
+                          <a href=""><i class="fa fa-times"></i></a>
+                      </td>
+                    </tr> 
+                    {% endfor %}
+              
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('#users').DataTable();
+} );
+
+</script>
+{% endblock %}

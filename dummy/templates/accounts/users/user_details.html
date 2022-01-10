@@ -1,0 +1,81 @@
+{% extends 'shared/shared.html' %}
+{% load static %}
+{% block title %}Dummy Portal | {{ obj.first_name|title}} {{ obj.last_name|title}}{% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="grid_3 grid_4">
+      <i class="fa fa-user fa-5x"></i>
+
+      <div class="card-body">
+        <h4 class="card-title">{{ obj.first_name|title}} {{ obj.last_name|title}}</h4>
+        <p class="card-text">Email: {{ obj.email}} </p>
+        <p class="card-text">Designation: {{ obj.designation|title}} </p>
+        <small> Date created : {{ obj.date_joined|date:"M d Y H:i A"}} </small>
+
+      </div>
+
+    </div>
+  </div>
+  <div class="col-md-7">
+    <div class="grid_3 grid_4">
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+        </button>
+        {{ message }}
+      </div>
+      {% endfor %}
+      {% endif %}
+      
+      {% if user.designation == 'admin' %}
+      <a href="{% url 'courses:add_course_to_lecturer' obj.pk %}" class="btn btn-success">Add Lecturing Courses</a>
+     <hr>
+      {% else %}
+     {% if user.designation == 'lecturer' %}
+      <h4>Lecturing Courses</h4>
+      <hr>
+      {% endif %}
+      
+      {% endif %}
+      {% for c in obj.lecturer_course_lecturer.all %}
+      <p>{{ forloop.counter }}. {{c.course.name|upper}}
+        {% if user.designation == 'admin' %}
+        <a href="{% url 'courses:remove_course_from_lecturer' c.pk obj.pk %}"><i class="fa fa-times"></i></a>
+        {% endif %}
+      </p>
+      <hr>
+      {% endfor %}
+
+      {% if user.designation == 'admin' %}
+      <a href="{% url 'departments:add_department_to_lecturer' obj.pk %}" class="btn btn-success">Add Department</a>
+     <hr>
+      {% else %}
+        <h4>Departments</h4>
+        <hr>
+      {% endif %}
+      {% for d in obj.lecturer_department_lecturer.all %}
+      <p>{{ forloop.counter }}. {{d.department.name|upper}}
+        {% if user.designation == 'admin' %}
+        <a href="{% url 'departments:remove_department_from_lecturer' d.pk obj.pk %}"><i class="fa fa-times"></i></a>
+        {% endif %}
+      </p>
+      <hr>
+     
+      {% endfor %}
+
+      {% if obj.designation == 'head of department' %}
+      <h4>Department Lecturers</h4>
+      <hr>
+      {% for l in lecturers %}
+      <p>{{ forloop.counter }}. {{l.user.first_name|title}} {{l.user.last_name|title}} ({{l.user.email}})</p>
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+{% endblock %}

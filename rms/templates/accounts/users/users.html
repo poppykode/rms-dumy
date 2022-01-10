@@ -1,0 +1,76 @@
+{% extends 'shared/shared.html' %}
+{% load static %}
+{% block title %}RMS Portal | Users{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-2">
+        <a href="{% url 'accounts:user_signup' %}" class="btn btn-success">Add User</a>
+    </div>
+   
+    <div class="col-md-10">
+		<div class="tables">
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+          <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+          </button>
+          {{ message }}
+      </div>
+      {% endfor %}
+      {% endif %}								
+            <table class="table table-bordered" id="users">
+                <thead>
+                    <tr>
+                      <th>First Name</th>
+                      <th>Designation</th>
+                      <th>Date Created</th>
+                      <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usrs in obj %}      
+                    <tr >            
+                      <td>
+                        {% if not usrs.designation == 'admin' %}
+                        <a href="{% url 'accounts:user_details' usrs.pk %}"> {{ usrs.first_name|title}}    {{ usrs.last_name|title}}</a> 
+                      {% else %}
+                      {{ usrs.first_name|title}}    {{ usrs.last_name|title}}
+                      {% endif %}
+                      </td>
+                      <td>  {{ usrs.designation|title}}   </td>
+                      <td>{{ usrs.date_joined|date:"M d Y H:i A"}}</td>
+                      <td> 
+                        {% if usrs.is_active %}    
+                      
+                          <a href="{% url 'accounts:toggle_user_status' usrs.pk %}"  style="color: green;">Active</a>
+                   
+                        {% else %}
+                        <a href="{% url 'accounts:toggle_user_status' usrs.pk %}" style="color: red;">Deactivated</a>
+                        
+                        {% endif %}
+                      </td>
+                    </tr> 
+                    {% endfor %}
+              
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('#users').DataTable();
+} );
+
+</script>
+{% endblock %}
