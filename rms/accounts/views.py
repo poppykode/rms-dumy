@@ -59,3 +59,12 @@ def users(request):
     }
     return render(request, template_name,context)
 
+@login_required
+def user_details(request,pk):
+    template_name = 'accounts/users/user_details.html'
+    qs = get_object_or_404(User,pk=request.user.pk)
+    context = {
+        'obj':qs
+    }
+    return render(request, template_name,context)
+

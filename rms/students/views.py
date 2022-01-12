@@ -1,6 +1,9 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
 
 from .forms import ArchieveForm
 from .models import Student, StudentResult, Archieve
@@ -58,3 +61,17 @@ def achieves(request):
     template_name = 'students/achieves.html'
     qs = Archieve.objects.all()
     return render(request, template_name,{'obj':qs})
+
+def pdf_report_create(request,id):
+    obj = get_object_or_404(Student,pk=id)
+    template_path = 'students/student_pdf.html'
+    context = {'obj': obj}
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename="students_report.pdf"'
+    template = get_template(template_path)
+    html = template.render(context)
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response

@@ -4,7 +4,8 @@ from .views import (
     login,
     redirect_logged,
     admin_dashboard,
-    users
+    users,
+    user_details
 )
 
 app_name = 'accounts'
@@ -14,5 +15,6 @@ urlpatterns = [
     path('login', login, name='login'),
     path('dashboard/admin', admin_dashboard, name='admin_dashboard'),
     path('users', users, name='users'),
+     path('user/details/<int:pk>', user_details, name='user_details'),
  
 ]

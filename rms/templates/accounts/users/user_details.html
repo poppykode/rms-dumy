@@ -1,0 +1,24 @@
+{% extends 'shared/shared.html' %}
+{% load static %}
+{% block title %}Dummy RMS | {{ obj.first_name|title}} {{ obj.last_name|title}}{% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="grid_3 grid_4">
+      <i class="fa fa-user fa-5x"></i>
+      <div class="card-body">
+        <h4 class="card-title">{{ obj.first_name|title}} {{ obj.last_name|title}}</h4>
+        <p class="card-text">Email: {{ obj.email}} </p>
+        <p class="card-text">Designation: {{ obj.designation|title}} </p>
+        <small> Date created : {{ obj.date_joined|date:"M d Y H:i A"}} </small>
+
+      </div>
+
+    </div>
+  </div>
+
+
+</div>
+{% endblock %}

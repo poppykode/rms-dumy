@@ -119,8 +119,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								</li>
 
 								<li class="dropdown note">
-									<a href="{% url 'logout' %}" class="dropdown-toggle" data-toggle="dropdown"
-										aria-expanded="false"><i class="lnr lnr-power-switch"></i></a>
+									<a href="{% url 'logout' %}"><i class="lnr lnr-power-switch"></i></a>
 
 								</li>
 
@@ -166,7 +165,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<header class="logo">
 				<a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a> <a
 					href="{% url 'accounts:redirect_logged' %}"> <span id="logo">
-						<h4>Dummy Portal</h4>
+						<h4>Admissions</h4>
 					</span>
 					<!--<img id="logo" src="" alt="Logo"/>-->
 				</a>
@@ -182,7 +181,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<ul>
 					<li><a class="tooltips" href="{% url 'accounts:user_details' user.pk %}"><span>Profile</span><i
 								class="lnr lnr-user"></i></a></li>
-					<li><a class="tooltips" href="#"><span>Settings</span><i class="lnr lnr-cog"></i></a></li>
+			
 					<li><a class="tooltips" href="{% url 'logout' %}"><span>Log out</span><i
 								class="lnr lnr-power-switch"></i></a></li>
 				</ul>

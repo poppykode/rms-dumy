@@ -5,7 +5,13 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css">
 {% endblock %}
 {% block content %}
-
+<div class="row">
+  <div class="col-md-12">
+    <h2>
+      {{obj.archieve_ids}}
+    </h2>
+  </div>
+</div>
 <div class="row">
     <div class="col-md-12">
 		<div class="tables">
@@ -44,7 +50,8 @@
                       {% endif %}
                       <td>
                         {% if stds.archieved == True %}
-                        <i style="color: green;" class="fa fa-check-square"></i>
+                      
+                        <a href="{% url 'students:pdf_report_create' stds.pk %}">create PDF</a>
                         {% else %}
                         <a href="{% url 'students:archieve' 'student' stds.pk stds.student_id %}"><i class="fa fa-archive"></i></a>
                        {% endif %}

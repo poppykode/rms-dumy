@@ -119,8 +119,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								</li>
 
 								<li class="dropdown note">
-									<a href="{% url 'logout' %}" class="dropdown-toggle" data-toggle="dropdown"
-										aria-expanded="false"><i class="lnr lnr-power-switch"></i></a>
+									<a href="{% url 'logout' %}" ><i class="lnr lnr-power-switch"></i></a>
 
 								</li>
 
@@ -180,9 +179,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						{{user.last_name|title}}</span></a>
 				<p>{{user.designation|title}}</p>
 				<ul>
-					<li><a class="tooltips" href="#"><span>Profile</span><i
+					<li><a class="tooltips" href="{% url 'accounts:user_details' user.pk %}"><span>Profile</span><i
 								class="lnr lnr-user"></i></a></li>
-					<li><a class="tooltips" href="#"><span>Settings</span><i class="lnr lnr-cog"></i></a></li>
+					<!-- <li><a class="tooltips" href="#"><span>Settings</span><i class="lnr lnr-cog"></i></a></li> -->
 					<li><a class="tooltips" href="{% url 'logout' %}"><span>Log out</span><i
 								class="lnr lnr-power-switch"></i></a></li>
 				</ul>
