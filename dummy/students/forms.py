@@ -8,6 +8,7 @@ class StudentForm(forms.ModelForm):
         widgets = {
             'address': forms.Textarea(attrs={'rows': 4, },),
             'dob': forms.DateInput(attrs={'class': 'datepicker', 'type': 'date', 'data-date-format': 'YYYY-MM-DD'}),
+            # 'phone_number': forms.TextInput(attrs={'type': 'date', 'data-date-format': 'YYYY-MM-DD'}),
         }
         fields = (
             "first_name",
