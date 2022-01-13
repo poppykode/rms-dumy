@@ -6,7 +6,7 @@ from students.models import Student
 def generate_achieve_id(size=20, chars=string.ascii_uppercase + string.digits):
     the_id = "".join(random.choice(chars) for x in range(size))
     year  = str(datetime.date.today().year)
-    tracker_id = 'CUT' + year + the_id +'-ARCHIEVED'
+    tracker_id = 'CUT' + year + the_id
     try:
         Student.objects.get(archieve_id=tracker_id)
         generate_achieve_id()

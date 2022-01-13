@@ -35,7 +35,7 @@ def admin_dashboard(request):
     qs_results = StudentResult.objects.all()
     total_students = qs_student.count()
     total_students_archieved = qs_student.filter(archieved = True).count()
-    total_students_to_be_archieved = qs_student.filter(archieved = True).count()
+    total_students_to_be_archieved = qs_student.filter(archieved = False).count()
     total_results =qs_results.count()
     context ={
         'total_students':total_students,
@@ -60,7 +60,7 @@ def users(request):
     return render(request, template_name,context)
 
 @login_required
-def user_details(request,pk):
+def user_details(request):
     template_name = 'accounts/users/user_details.html'
     qs = get_object_or_404(User,pk=request.user.pk)
     context = {

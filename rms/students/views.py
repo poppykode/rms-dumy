@@ -25,9 +25,11 @@ def student_details(request,pk,student_id):
     template_name = 'students/student_details.html'
     qs = get_object_or_404(Student,pk=pk)
     qs_results = StudentResult.objects.filter(student_id=student_id)
+    qs_archieve = Archieve.objects.filter(archieve_id=qs.archieve_id)
     context = {
         'obj':qs,
-        'results':qs_results
+        'results':qs_results,
+        'archieve': qs_archieve
     }
     return render(request, template_name,context)
 
@@ -50,6 +52,21 @@ def archieve(request,typ,item_id,student_id):
             qs.save()
             return redirect('students:student_details',pk=qs.pk,student_id=student_id )
     return render(request,template_name,{'form':ArchieveForm(),'typ':typ,'student_id':student_id,'obj':qs})
+
+@login_required
+def update_achieve(request, typ,item_id,student_id,student_pk):
+    template_name = 'students/update_achieve.html'
+    qs = get_object_or_404(Archieve,pk=item_id)
+    if request.method == 'POST':
+        form = ArchieveForm(request.POST,instance=qs)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Archieve location successfully updated!')
+            return redirect('students:student_details',pk=student_pk,student_id=student_id )
+    else:
+        context = {'form': ArchieveForm(instance=qs), 'obj': qs,'typ':typ,'student_id':student_id,}
+    return render(request, template_name, context)
+
 
 @login_required
 def achieve_location(request):

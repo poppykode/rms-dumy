@@ -26,7 +26,7 @@
            <p><strong>Address</strong> </p>
            <p>{{obj.address|title}}</p>
           <hr>
-         
+     
         </div>
 
    </div>
@@ -42,7 +42,8 @@
         </div>
         {% endfor %}
         {% endif %}	
-
+{% if results %}
+<h4>Results</h4>
         <div class="tables">
           <table class="table table-bordered"> 
             <thead> 
@@ -55,7 +56,7 @@
                 <th>Grade</th>
                 <th>Credits</th>
                 <th>Date</th>
-                <th>Actions</th>
+               
               </tr> 
             </thead> 
             <tbody> 
@@ -68,19 +69,48 @@
                  <td>{{s.grade|title}}</td>
                  <td>{{s.credits}}</td> 
                  <td>{{ s.timestamp|date:"M d Y H:i A"}}</td>
-                 <td>
+                 <!-- <td>
                   {% if stds.archieved == True %}
                   <i style="color: green;" class="fa fa-check-square"></i>
                   {% else %}
                   <a href=""><i class="fa fa-archive"></i></a>
                  {% endif %}
-                 </td>
+                 </td> -->
                 </tr>
               {% endfor %}
                </tbody> 
               </table>
         </div>
-      
+{% endif %}
+        {% if obj.archieved %}
+        <h4>Student Details Archieve Location</h4>
+        
+       <div class="tables">
+         <table class="table table-bordered"> 
+           <thead> 
+             <tr> 
+          
+               <th>Row</th> 
+               <th>Bay</th> 
+               <th>Shelf</th> 
+               <th>Position</th>
+               <th>Actions</th>
+             </tr> 
+           </thead> 
+           <tbody> 
+             {% for arch in archieve %}
+             <tr>    
+               <td>{{arch.row}}</td>
+               <td>{{arch.bay}}</td>
+               <td>{{arch.shelf}}</td>
+               <td>{{arch.position|title}}</td>
+               <td><a href="{% url 'students:update_achieve' 'student' arch.pk arch.item_id obj.pk %}">change location</a></td>
+               </tr>
+             {% endfor %}
+              </tbody> 
+             </table>
+       </div>
+       {% endif %}
   
       
         </div>

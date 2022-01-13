@@ -1,12 +1,12 @@
 {% extends 'shared/shared.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
-{% block title %}RMS Portal |  Achieve
+{% block title %}RMS Portal | Update Achieve
 {% endblock %}
 {% block content %}
 <div class="forms-main"> 
     <h4 class="inner-tittle">
-       Achieving for archieve id: {{obj.archieve_id}}
+        Update Achieve {{obj.pk}}
     </h4>
 
     <div class="graph-form">
@@ -19,7 +19,7 @@
         </div>
         {% endfor %}
         {% endif %}
-    <form method="POST" action="{% url 'students:archieve' typ obj.pk student_id %}">
+    <form method="POST">
         {% csrf_token %}
         <div class="form-group mb-3">
             {{ form.row|as_crispy_field }}
@@ -34,7 +34,7 @@
             {{ form.position|as_crispy_field }}
         </div>
         <div class="row">
-                <button type="submit" class="btn btn-default">Add</button>      
+                <button type="submit" class="btn btn-default">Update</button>      
                 <a href="" class="btn btn-warning">Cancel</a>
             </div>
         </div>
